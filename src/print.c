@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/02 13:31:54 by aditer            #+#    #+#             */
-/*   Updated: 2024/07/06 18:13:07 by aditer           ###   ########.fr       */
+/*   Created: 2024/10/23 16:00:36 by aditer            #+#    #+#             */
+/*   Updated: 2024/10/23 16:08:06 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-# include "philo_struct.h"
-# include <stdio.h>
-# include <string.h>
-# include <limits.h>
-# include <stdlib.h>
-# include <sys/time.h>
-
-// -----UTILS-----
-
-int	ft_atoi(const char *nptr);
-int	ft_ispositive_number(char *str);
-size_t	get_time(void);
-
-// -----THREADS-----
-
-void	*routine(void *arg);
-void	init_threads(t_data *data);
-void	exit_prog(t_data *data);
-#endif
+void	secure_print(t_philo *philo, char *str, char *color)
+{
+	if (get_dead(philo))
+		return ;
+	pthread_mutex_lock(philo->print_mutex);
+	printf("%s%ld %d %s%s\n", color, (get_time() - philo->start_time),
+		philo->id, str, RESET);
+	pthread_mutex_unlock(philo->print_mutex);
+}

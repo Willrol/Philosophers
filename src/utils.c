@@ -6,11 +6,11 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 07:14:44 by aditer            #+#    #+#             */
-/*   Updated: 2024/07/06 18:12:52 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/23 14:57:42 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/philo.h"
+#include "philo.h"
 
 int	ft_ispositive_number(char *str)
 {
@@ -28,8 +28,8 @@ int	ft_ispositive_number(char *str)
 
 int	ft_atoi(const char *nptr)
 {
-	int i;
-	int res;
+	int	i;
+	int	res;
 
 	i = 0;
 	res = 0;
@@ -45,8 +45,8 @@ int	ft_atoi(const char *nptr)
 
 size_t	get_time(void)
 {
-	struct timeval	time;
+	struct timeval time;
 
 	gettimeofday(&time, NULL);
-	return(time.tv_sec * 1000 + time.tv_usec / 1000);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

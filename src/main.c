@@ -6,11 +6,11 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:32:02 by aditer            #+#    #+#             */
-/*   Updated: 2024/07/06 14:05:57 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/23 16:04:48 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/philo.h"
+#include "philo.h"
 
 int	check_args(t_data *data, int argc, char **argv)
 {
@@ -25,6 +25,7 @@ int	check_args(t_data *data, int argc, char **argv)
 		data->time_to_die = ft_atoi(argv[2]);
 		data->time_to_eat = ft_atoi(argv[3]);
 		data->time_to_sleep = ft_atoi(argv[4]);
+		data->eat_count_max = -1;
 		if (argc == 6)
 		{
 			data->eat_count_max = ft_atoi(argv[5]);
@@ -55,6 +56,10 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	data.philos = malloc(sizeof(t_philo) * data.nb_of_philo);
+	pthread_mutex_init(&data.dead_mutex, NULL);
+	pthread_mutex_init(&data.last_eat_mutex, NULL);
+	pthread_mutex_init(&data.eat_count_mutex, NULL);
+	pthread_mutex_init(&data.print_mutex, NULL);
 	init_threads(&data);
 	exit_prog(&data);
 	free(data.philos);

@@ -1,12 +1,16 @@
 NAME  = philo
+
 SRC_DIR = src
-SRC =	main.c	\
-		utils.c	\
-		thread.c
+
+SRC =	main.c		\
+		utils.c		\
+		thread.c	\
+		status.c	\
+		print.c		
 
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -g3 -I./include
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
