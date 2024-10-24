@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:31:59 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/24 09:26:21 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/24 18:03:09 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_philo
 	int				nb_of_philo;
 	int				eat_count_max;
 	bool			dead;
+	bool			first_turn;
 
 }					t_philo;
 

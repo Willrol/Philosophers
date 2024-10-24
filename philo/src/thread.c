@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:05:38 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/24 15:42:56 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/24 18:03:28 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	init_threads(t_data *data)
 		data->philos[i].last_eat = start_time;
 		data->philos[i].start_time = start_time;
 		data->philos[i].eat_count_max = data->eat_count_max;
+		data->philos[i].first_turn = true;
 		data->philos[i].dead = false;
 		data->philos[i].dead_mutex = &data->dead_mutex;
 		data->philos[i].last_eat_mutex = &data->last_eat_mutex;

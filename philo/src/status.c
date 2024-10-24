@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:56:34 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/24 16:24:15 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/24 18:47:47 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ bool	is_sleeping(t_philo *philo)
 	if (get_dead(philo) || philo->eat_count_max == 0)
 		return (false);
 	secure_print(philo, "is sleeping", SLEEP);
-	if (!ft_usleep(philo->time_to_sleep, philo))
-		return (false);
+	usleep(philo->time_to_sleep * 1000);
 	return (true);
 }
 
@@ -57,8 +56,7 @@ bool	is_eating(t_philo *philo)
 	philo->last_eat = get_time();
 	pthread_mutex_unlock(philo->last_eat_mutex);
 	secure_print(philo, "is eating", EAT);
-	if (!ft_usleep(philo->time_to_eat, philo))
-		return (put_forks(philo), false);
+	usleep(philo->time_to_eat * 1000);
 	if (get_eat_count(philo) > 0)
 	{
 		pthread_mutex_lock(philo->eat_count_mutex);
@@ -109,19 +107,21 @@ bool	is_thinking(t_philo *philo)
 	if (get_dead(philo) || philo->eat_count_max == 0)
 		return (false);
 	secure_print(philo, "is thinking", THINK);
-	if (philo->nb_of_philo % 4 != 0)
+	if (philo->nb_of_philo % 2 != 0
+		&& philo->time_to_eat > philo->time_to_sleep)
 	{
-		if (philo->time_to_eat > philo->time_to_sleep)
-			thinking_time = philo->time_to_eat - philo->time_to_sleep;
-		if (philo->id % 2 != 0)
+		thinking_time = philo->time_to_eat - philo->time_to_sleep;
+	}
+	if (philo->id % 2 != 0)
+	{
+		usleep(5000 + thinking_time);
+	}
+	else
+	{
+		if (philo->first_turn)
 		{
-			if (!ft_usleep((philo->time_to_eat / 2) + thinking_time, philo))
-				return (false);
-		}
-		else
-		{
-			if (!ft_usleep(thinking_time, philo))
-				return (false);
+			philo->first_turn = false;
+			usleep(philo->time_to_eat * 500);
 		}
 	}
 	if (!take_forks(philo))
