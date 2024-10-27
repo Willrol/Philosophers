@@ -7,7 +7,8 @@ SRC =	main.c			\
 		thread.c		\
 		status.c		\
 		print.c			\
-		dead.c	
+		dead.c			\
+		getters.c
 
 CC = cc
 RM = rm -f

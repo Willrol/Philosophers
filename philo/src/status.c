@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:56:34 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/24 18:47:47 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/27 14:18:28 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,7 @@ bool	is_sleeping(t_philo *philo)
 	return (true);
 }
 
-int	get_eat_count(t_philo *philo)
-{
-	int	eat_count;
-
-	pthread_mutex_lock(philo->eat_count_mutex);
-	eat_count = philo->eat_count_max;
-	pthread_mutex_unlock(philo->eat_count_mutex);
-	return (eat_count);
-}
-
-void	put_forks(t_philo *philo)
+static void	put_forks(t_philo *philo)
 {
 	if (philo->id % 2 != 0)
 	{
@@ -73,7 +63,7 @@ bool	is_eating(t_philo *philo)
 	return (true);
 }
 
-bool	take_forks(t_philo *philo)
+static bool	take_forks(t_philo *philo)
 {
 	if (get_dead(philo) || philo->eat_count_max == 0)
 		return (false);
@@ -109,13 +99,9 @@ bool	is_thinking(t_philo *philo)
 	secure_print(philo, "is thinking", THINK);
 	if (philo->nb_of_philo % 2 != 0
 		&& philo->time_to_eat > philo->time_to_sleep)
-	{
 		thinking_time = philo->time_to_eat - philo->time_to_sleep;
-	}
 	if (philo->id % 2 != 0)
-	{
 		usleep(5000 + thinking_time);
-	}
 	else
 	{
 		if (philo->first_turn)

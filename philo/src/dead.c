@@ -6,23 +6,13 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:13:09 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/24 14:05:33 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/27 14:17:44 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	get_last_eat(t_philo *philo)
-{
-	long	last_eat;
-
-	pthread_mutex_lock(philo->last_eat_mutex);
-	last_eat = philo->last_eat;
-	pthread_mutex_unlock(philo->last_eat_mutex);
-	return (last_eat);
-}
-
-bool	check_time(t_philo *philo, long time_to_die)
+static bool	check_time(t_philo *philo, long time_to_die)
 {
 	long	time;
 
