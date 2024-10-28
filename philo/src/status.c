@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:56:34 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/27 14:18:28 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:35:26 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ bool	is_eating(t_philo *philo)
 		if (philo->eat_count_max == 0)
 		{
 			pthread_mutex_unlock(philo->eat_count_mutex);
+			pthread_mutex_lock(philo->finish_eating_mutex);
+			philo->finish_eating = true;
+			pthread_mutex_unlock(philo->finish_eating_mutex);
 			put_forks(philo);
 			return (false);
 		}
@@ -96,14 +99,17 @@ bool	is_thinking(t_philo *philo)
 	thinking_time = 0;
 	if (get_dead(philo) || philo->eat_count_max == 0)
 		return (false);
-	secure_print(philo, "is thinking", THINK);
 	if (philo->nb_of_philo % 2 != 0
 		&& philo->time_to_eat > philo->time_to_sleep)
 		thinking_time = philo->time_to_eat - philo->time_to_sleep;
 	if (philo->id % 2 != 0)
+	{
+		secure_print(philo, "is thinking", THINK);
 		usleep(5000 + thinking_time);
+	}
 	else
 	{
+		secure_print(philo, "is thinking", THINK);
 		if (philo->first_turn)
 		{
 			philo->first_turn = false;

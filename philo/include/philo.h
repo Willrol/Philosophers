@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:31:54 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/27 14:33:10 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:45:47 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	secure_print(t_philo *philo, char *str, char *color);
 // -----THREADS-----
 
 void	init_threads(t_data *data);
+void	init_mutexes(t_data *data);
 void	exit_prog(t_data *data);
 
 // -----STATUS-----
@@ -45,11 +46,13 @@ bool	is_thinking(t_philo *philo);
 bool	is_eating(t_philo *philo);
 bool	is_sleeping(t_philo *philo);
 bool	check_dead(t_data *data);
+bool	check_finish_eating(t_data *data);
 
 // -----GETTERS-----
 
 bool	get_dead(t_philo *philo);
 long	get_last_eat(t_philo *philo);
+bool	get_finish_eating(t_philo *philo);
 int		get_eat_count(t_philo *philo);
 
 #endif

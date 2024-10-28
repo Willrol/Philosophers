@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:05:38 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/27 14:33:03 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:45:52 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	*routine(void *arg)
 }
 
 static void	initialize_philosopher(t_philo *philo, t_data *data, int i,
-									time_t start_time)
+		time_t start_time)
 {
 	philo->id = i + 1;
 	philo->nb_of_philo = data->nb_of_philo;
@@ -42,12 +42,14 @@ static void	initialize_philosopher(t_philo *philo, t_data *data, int i,
 	philo->last_eat = start_time;
 	philo->start_time = start_time;
 	philo->eat_count_max = data->eat_count_max;
+	philo->finish_eating = false;
 	philo->first_turn = true;
 	philo->dead = false;
 	philo->dead_mutex = &data->dead_mutex;
 	philo->last_eat_mutex = &data->last_eat_mutex;
 	philo->eat_count_mutex = &data->eat_count_mutex;
 	philo->print_mutex = &data->print_mutex;
+	philo->finish_eating_mutex = &data->finish_eating_mutex;
 }
 
 void	init_threads(t_data *data)
@@ -73,6 +75,15 @@ void	init_threads(t_data *data)
 			&data->philos[i]);
 		i++;
 	}
+}
+
+void	init_mutexes(t_data *data)
+{
+	pthread_mutex_init(&data->dead_mutex, NULL);
+	pthread_mutex_init(&data->last_eat_mutex, NULL);
+	pthread_mutex_init(&data->eat_count_mutex, NULL);
+	pthread_mutex_init(&data->print_mutex, NULL);
+	pthread_mutex_init(&data->finish_eating_mutex, NULL);
 }
 
 void	exit_prog(t_data *data)

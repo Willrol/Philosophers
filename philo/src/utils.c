@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 07:14:44 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/27 14:16:24 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:10:11 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,33 @@ static int	ft_ispositive_number(char *str)
 	return (1);
 }
 
-static int	ft_atoi(const char *nptr)
+static long	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	res;
+	int		i;
+	long	res;
+	int		sign;
 
 	i = 0;
 	res = 0;
-	while (nptr[i] >= '0' && nptr[i] <= '9' && nptr[i])
+	sign = 1;
+	while (nptr[i] == ' ' || (nptr[i] >= '\t' && nptr[i] <= '\r'))
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
+		if (nptr[i++] == '-')
+			sign = -1;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
-		res = res * 10 + nptr[i] - '0';
+		if (res > (LONG_MAX - (nptr[i] - '0')) / 10)
+		{
+			if (sign == 1)
+				return (LONG_MAX);
+			else
+				return (LONG_MIN);
+		}
+		res = res * 10 + (nptr[i] - '0');
 		i++;
 	}
-	if (res == 0)
-		return (0);
-	return (res);
+	return (res * sign);
 }
 
 int	check_args(t_data *data, int argc, char **argv)

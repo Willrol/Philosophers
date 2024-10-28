@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 16:13:09 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/27 14:17:44 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 10:38:37 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,22 @@ bool	check_dead(t_data *data)
 		i++;
 	}
 	return (true);
+}
+
+bool	check_finish_eating(t_data *data)
+{
+	int	i;
+	int	finish;
+
+	i = 0;
+	finish = 0;
+	while (i < data->nb_of_philo)
+	{
+		if (get_finish_eating(&data->philos[i]))
+			finish++;
+		i++;
+	}
+	if (finish == data->nb_of_philo)
+		return (true);
+	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:32:02 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/27 14:31:01 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 11:02:05 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,11 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	data.philos = malloc(sizeof(t_philo) * data.nb_of_philo);
-	pthread_mutex_init(&data.dead_mutex, NULL);
-	pthread_mutex_init(&data.last_eat_mutex, NULL);
-	pthread_mutex_init(&data.eat_count_mutex, NULL);
-	pthread_mutex_init(&data.print_mutex, NULL);
+	init_mutexes(&data);
 	init_threads(&data);
-	while (check_dead(&data))
-		;
+	while (true)
+		if (check_dead(&data) || check_finish_eating(&data))
+			break ;
 	exit_prog(&data);
 	free(data.philos);
 	return (0);
