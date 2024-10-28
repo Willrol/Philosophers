@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:32:02 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/28 11:02:05 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 15:49:28 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 	init_mutexes(&data);
 	init_threads(&data);
 	while (true)
-		if (check_dead(&data) || check_finish_eating(&data))
+		if (!check_dead(&data) || check_finish_eating(&data))
 			break ;
 	exit_prog(&data);
 	free(data.philos);

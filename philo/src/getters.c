@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/27 14:12:36 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/28 10:36:39 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 16:10:44 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ bool	get_finish_eating(t_philo *philo)
 	pthread_mutex_unlock(philo->finish_eating_mutex);
 	return (finish_eating);
 }
+
 bool	get_dead(t_philo *philo)
 {
 	bool	dead;

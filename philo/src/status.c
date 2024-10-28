@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:56:34 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/28 10:35:26 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 16:26:47 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ static void	put_forks(t_philo *philo)
 bool	is_eating(t_philo *philo)
 {
 	if (get_dead(philo) || philo->eat_count_max == 0)
-	{
-		put_forks(philo);
-		return (false);
-	}
+		return (put_forks(philo), false);
 	pthread_mutex_lock(philo->last_eat_mutex);
 	philo->last_eat = get_time();
 	pthread_mutex_unlock(philo->last_eat_mutex);

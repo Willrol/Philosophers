@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:31:54 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/28 10:45:47 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 15:53:00 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 int		check_args(t_data *data, int argc, char **argv);
 long	get_time(void);
 void	secure_print(t_philo *philo, char *str, char *color);
+bool	ft_usleep(long time, t_philo *philo);
 
 // -----THREADS-----
 
@@ -47,6 +48,7 @@ bool	is_eating(t_philo *philo);
 bool	is_sleeping(t_philo *philo);
 bool	check_dead(t_data *data);
 bool	check_finish_eating(t_data *data);
+bool	handle_thinking(t_philo *philo, int thinking_time);
 
 // -----GETTERS-----
 

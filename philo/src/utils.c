@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 07:14:44 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/28 10:10:11 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 16:46:50 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ static long	ft_atoi(const char *nptr)
 	{
 		if (res > (LONG_MAX - (nptr[i] - '0')) / 10)
 		{
-			if (sign == 1)
-				return (LONG_MAX);
-			else
-				return (LONG_MIN);
+			printf("Error: Overflow detected\n");
+			return (-1);
 		}
 		res = res * 10 + (nptr[i] - '0');
 		i++;
@@ -59,8 +57,8 @@ int	check_args(t_data *data, int argc, char **argv)
 {
 	int	i;
 
-	i = 1;
-	while (argv[i])
+	i = 0;
+	while (argv[++i])
 	{
 		if (!ft_ispositive_number(argv[i]))
 			return (1);
@@ -76,9 +74,10 @@ int	check_args(t_data *data, int argc, char **argv)
 				return (1);
 		}
 		if (data->nb_of_philo == 0 || data->time_to_die == 0
-			|| data->time_to_eat == 0 || data->time_to_sleep == 0)
+			|| data->time_to_eat == 0 || data->time_to_sleep == 0
+			|| data->nb_of_philo == -1 || data->time_to_die == -1
+			|| data->time_to_eat == -1 || data->time_to_sleep == -1)
 			return (1);
-		i++;
 	}
 	return (0);
 }
@@ -89,4 +88,18 @@ long	get_time(void)
 
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+bool	ft_usleep(long time, t_philo *philo)
+{
+	long	start;
+
+	start = get_time();
+	while (get_time() - start < time)
+	{
+		if (get_dead(philo))
+			return (false);
+		usleep(100);
+	}
+	return (true);
 }

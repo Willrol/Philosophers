@@ -6,6 +6,7 @@ SRC =	main.c			\
 		utils.c			\
 		thread.c		\
 		status.c		\
+		status_utils.c	\
 		print.c			\
 		dead.c			\
 		getters.c
