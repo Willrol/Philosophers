@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:31:54 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/28 15:53:00 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/29 11:42:43 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,16 @@ void	exit_prog(t_data *data);
 bool	is_thinking(t_philo *philo);
 bool	is_eating(t_philo *philo);
 bool	is_sleeping(t_philo *philo);
+
+// -----HANDLE_FORK-----
+
+bool	take_forks(t_philo *philo);
+void	put_forks(t_philo *philo);
+
+// -----DEAD-----
+
 bool	check_dead(t_data *data);
 bool	check_finish_eating(t_data *data);
-bool	handle_thinking(t_philo *philo, int thinking_time);
 
 // -----GETTERS-----
 

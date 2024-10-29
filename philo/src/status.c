@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 14:56:34 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/28 16:26:47 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/29 12:40:57 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,8 @@ bool	is_sleeping(t_philo *philo)
 	if (get_dead(philo) || philo->eat_count_max == 0)
 		return (false);
 	secure_print(philo, "is sleeping", SLEEP);
-	usleep(philo->time_to_sleep * 1000);
+	ft_usleep(philo->time_to_sleep, philo);
 	return (true);
-}
-
-static void	put_forks(t_philo *philo)
-{
-	if (philo->id % 2 != 0)
-	{
-		pthread_mutex_unlock(philo->l_fork);
-		pthread_mutex_unlock(&philo->r_fork);
-	}
-	else if (philo->id % 2 == 0)
-	{
-		pthread_mutex_unlock(&philo->r_fork);
-		pthread_mutex_unlock(philo->l_fork);
-	}
 }
 
 bool	is_eating(t_philo *philo)
@@ -43,7 +29,7 @@ bool	is_eating(t_philo *philo)
 	philo->last_eat = get_time();
 	pthread_mutex_unlock(philo->last_eat_mutex);
 	secure_print(philo, "is eating", EAT);
-	usleep(philo->time_to_eat * 1000);
+	ft_usleep(philo->time_to_eat, philo);
 	if (get_eat_count(philo) > 0)
 	{
 		pthread_mutex_lock(philo->eat_count_mutex);
@@ -63,32 +49,6 @@ bool	is_eating(t_philo *philo)
 	return (true);
 }
 
-static bool	take_forks(t_philo *philo)
-{
-	if (get_dead(philo) || philo->eat_count_max == 0)
-		return (false);
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(philo->l_fork);
-		secure_print(philo, "has taken a fork", FORK);
-		if (get_dead(philo) || philo->eat_count_max == 0)
-			return (pthread_mutex_unlock(philo->l_fork), false);
-		pthread_mutex_lock(&philo->r_fork);
-		secure_print(philo, "has taken a fork", FORK);
-	}
-	else if (philo->id % 2 != 0)
-	{
-		pthread_mutex_lock(&philo->r_fork);
-		secure_print(philo, "has taken a fork", FORK);
-		if (philo->nb_of_philo == 1 || get_dead(philo)
-			|| philo->eat_count_max == 0)
-			return (pthread_mutex_unlock(&philo->r_fork), false);
-		pthread_mutex_lock(philo->l_fork);
-		secure_print(philo, "has taken a fork", FORK);
-	}
-	return (true);
-}
-
 bool	is_thinking(t_philo *philo)
 {
 	long	thinking_time;
@@ -102,7 +62,7 @@ bool	is_thinking(t_philo *philo)
 	if (philo->id % 2 != 0)
 	{
 		secure_print(philo, "is thinking", THINK);
-		usleep(5000 + thinking_time);
+		ft_usleep(5 + thinking_time, philo);
 	}
 	else
 	{
@@ -110,7 +70,7 @@ bool	is_thinking(t_philo *philo)
 		if (philo->first_turn)
 		{
 			philo->first_turn = false;
-			usleep(philo->time_to_eat * 500);
+			ft_usleep((philo->time_to_eat), philo);
 		}
 	}
 	if (!take_forks(philo))

@@ -6,14 +6,14 @@ SRC =	main.c			\
 		utils.c			\
 		thread.c		\
 		status.c		\
-		status_utils.c	\
+		handle_fork.c	\
 		print.c			\
 		dead.c			\
 		getters.c
 
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra -I./include -g3 #-fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra -I./include
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 

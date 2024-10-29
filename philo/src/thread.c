@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 14:05:38 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/28 10:45:52 by aditer           ###   ########.fr       */
+/*   Updated: 2024/10/28 17:00:12 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static void	*routine(void *arg)
 	return (NULL);
 }
 
-static void	initialize_philosopher(t_philo *philo, t_data *data, int i,
-		time_t start_time)
+static void	init_philo(t_philo *philo, t_data *data, int i, time_t start_time)
 {
 	philo->id = i + 1;
 	philo->nb_of_philo = data->nb_of_philo;
@@ -61,7 +60,7 @@ void	init_threads(t_data *data)
 	start_time = get_time();
 	while (i < data->nb_of_philo)
 	{
-		initialize_philosopher(&data->philos[i], data, i, start_time);
+		init_philo(&data->philos[i], data, i, start_time);
 		pthread_mutex_init(&data->philos[i].r_fork, NULL);
 		if (i != 0)
 			data->philos[i].l_fork = &data->philos[i - 1].r_fork;
@@ -102,4 +101,9 @@ void	exit_prog(t_data *data)
 		pthread_mutex_destroy(data->philos[i].l_fork);
 		i++;
 	}
+	pthread_mutex_destroy(&data->dead_mutex);
+	pthread_mutex_destroy(&data->last_eat_mutex);
+	pthread_mutex_destroy(&data->eat_count_mutex);
+	pthread_mutex_destroy(&data->print_mutex);
+	pthread_mutex_destroy(&data->finish_eating_mutex);
 }
