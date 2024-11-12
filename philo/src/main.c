@@ -6,7 +6,7 @@
 /*   By: aditer <aditer@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 13:32:02 by aditer            #+#    #+#             */
-/*   Updated: 2024/10/28 15:49:28 by aditer           ###   ########.fr       */
+/*   Updated: 2024/11/12 19:33:39 by aditer           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	data.philos = malloc(sizeof(t_philo) * data.nb_of_philo);
+	if (!data.philos)
+		return(1);
 	init_mutexes(&data);
 	init_threads(&data);
 	while (true)
